@@ -1,0 +1,78 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <title>Wakacje już wkrótce!</title>
+    <!-- Podłączenie pliku CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Główne opakowanie strony -->
+    <div class="container">
+        <!-- Nagłówek z dynamicznym tekstem -->
+        <h1 id="title">Wakacje już wkrótce!</h1>
+
+        <!-- Sekcja z odliczaniem do wakacji -->
+        <div class="countdown-box">
+            <p>Do rozpoczęcia wakacji pozostało:</p>
+            <div class="time">
+                <span id="days">0</span><span class="label">dni</span>
+                <span id="hours">0</span><span class="label">godzin</span>
+                <span id="minutes">0</span><span class="label">minut</span>
+                <span id="seconds">0</span><span class="label">sekund</span>
+            </div>
+        </div>
+
+        <!-- Dodatkowy dynamiczny komunikat -->
+        <p id="dynamic-message" class="message">
+            Przygotuj się na odpoczynek, przygodę i dużo słońca!
+        </p>
+    </div>
+
+    <!-- Przekazanie daty wakacji z backendu do JS poprzez atrybut data- -->
+    <script>
+        // Pobieramy datę rozpoczęcia wakacji z atrybutu data na elemencie body
+        const vacationStart = new Date("{{ vacation_start }}");
+
+        // Funkcja aktualizująca odliczanie
+        function updateCountdown() {
+            const now = new Date();
+            const diff = vacationStart - now;
+
+            // Jeśli różnica jest mniejsza lub równa 0, wakacje się zaczęły
+            if (diff <= 0) {
+                document.getElementById("title").textContent = "Wakacje właśnie się zaczęły! 🎉";
+                document.getElementById("dynamic-message").textContent = "Czas na relaks i spełnianie marzeń!";
+                document.querySelector(".countdown-box p").textContent = "Wakacje trwają!";
+                document.getElementById("days").textContent = 0;
+                document.getElementById("hours").textContent = 0;
+                document.getElementById("minutes").textContent = 0;
+                document.getElementById("seconds").textContent = 0;
+                return;
+            }
+
+            // Obliczamy dni, godziny, minuty i sekundy do wakacji
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+
+            const displayHours = hours % 24;
+            const displayMinutes = minutes % 60;
+            const displaySeconds = seconds % 60;
+
+            // Ustawiamy wartości w odpowiednich elementach HTML
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = displayHours;
+            document.getElementById("minutes").textContent = displayMinutes;
+            document.getElementById("seconds").textContent = displaySeconds;
+        }
+
+        // Aktualizujemy odliczanie co sekundę
+        setInterval(updateCountdown, 1000);
+        // Wywołanie początkowe, aby nie czekać pierwszej sekundy
+        updateCountdown();
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+/* static/style.css */
+/* Podstawowy reset marginesów i czcionki */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: #ffffff;
+}
+
+/* Główne opakowanie strony, centrowanie w pionie i poziomie */
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Nagłówek z lekką animacją pulsowania */
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+/* Pudełko z odliczaniem */
+.countdown-box {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+/* Styl dla liczb odliczania */
+.time {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+/* Etykiety jednostek czasu (dni, godziny itd.) */
+.label {
+    margin-right: 15px;
+    margin-left: 5px;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Dodatkowy komunikat */
+.message {
+    font-size: 1.2rem;
+    max-width: 500px;
+}
+
+/* Prosta animacja pulsowania nagłówka */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+    50% {
+        transform: scale(1.05);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    }
+}
